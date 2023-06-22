@@ -12,7 +12,7 @@ module.exports.getUsers = (req, res) => {
       res.send({ data: users });
     })
     .catch((error) => {
-      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении пользователей' });
+      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении пользователей' }, error);
     });
 };
 
@@ -29,9 +29,9 @@ module.exports.getUserById = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Передан некорректный идентификатор пользователя' });
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Передан некорректный идентификатор пользователя' }, error);
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении пользователя' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении пользователя' }, error);
       }
     });
 };
@@ -45,9 +45,9 @@ module.exports.createUser = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании пользователя' });
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании пользователя' }, error);
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при создании пользователя' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при создании пользователя' }, error);
       }
     });
 };
@@ -69,9 +69,9 @@ module.exports.updateProfile = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля' });
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля' }, error);
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при обновлении профиля' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при обновлении профиля' }, error);
       }
     });
 };
@@ -93,9 +93,9 @@ module.exports.updateAvatar = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара' });
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара' }, error);
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при обновлении аватара' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при обновлении аватара' }), error;
       }
     });
 };

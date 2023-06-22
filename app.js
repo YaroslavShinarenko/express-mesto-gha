@@ -30,6 +30,10 @@ module.exports.createCard = (req, res) => {
 app.use('/', require('./routes/users'));
 app.use('/', require('./routes/cards'));
 
+app.use((req, res) => {
+  res.status(404).json({ message: 'Некорректный путь запроса' });
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.listen(PORT, () => {
   console.log(`Слушаем порт: ${PORT}`);
