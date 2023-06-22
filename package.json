@@ -1,0 +1,23 @@
+{
+  "name": "express-mesto",
+  "version": "1.0.0",
+  "description": "backend mesto on express",
+  "main": "app.js",
+  "author": "Yaroslav Shinkarenko",
+  "scripts": {
+    "lint": "npx eslint",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "express": "^4.18.2",
+    "mongodb": "^5.6.0",
+    "mongoose": "^7.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
