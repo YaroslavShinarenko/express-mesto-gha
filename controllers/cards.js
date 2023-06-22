@@ -13,7 +13,7 @@ module.exports.getCards = (req, res) => {
       res.send({ data: cards });
     })
     .catch((error) => {
-      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении карточек'}, error);
+      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении карточек', errorName: error.name });
     });
 };
 
@@ -26,19 +26,15 @@ module.exports.createCard = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании карточки' }, error);
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании карточки', errorName: error.name });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при создании карточки'}, error);
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при создании карточки', errorName: error.name });
       }
     });
 };
 
 module.exports.deleteCard = (req, res) => {
   const { cardId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(cardId)) {
-    return res.status(BAD_REQUEST_ERROR_CODE).send({ message: `Некорректный id: ${cardId}` });
-  }
 
   Card.findByIdAndRemove(cardId)
     .then((card) => {
@@ -48,7 +44,11 @@ module.exports.deleteCard = (req, res) => {
       res.send({ data: card });
     })
     .catch((error) => {
-      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при удалении карточки', error });
+      if (error.name === 'ValidationError') {
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при удалении карточки', errorName: error.name });
+      } else {
+      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при удалении карточки', errorName: error.name });
+      }
     });
 };
 
@@ -69,9 +69,9 @@ module.exports.likeCard = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные для постановки лайка' }), error;
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные для постановки лайка', errorName: error.name });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при постановке лайка'}, error);
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при постановке лайка', errorName: error.name });
       }
     });
 };
@@ -93,9 +93,10 @@ module.exports.dislikeCard = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные для снятия лайка' }, error);
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные для снятия лайка', errorName: error.name });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при снятии лайка'}, error);
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при снятии лайка', errorName: error.name });
       }
     });
 };
+
