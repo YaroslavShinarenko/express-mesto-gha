@@ -27,8 +27,8 @@ module.exports.createCard = (req, res) => {
   console.log(req.user._id); // _id станет доступен
 };
 
-app.use('/', require('./routes/users'));
-app.use('/', require('./routes/cards'));
+app.use('/', require('./src/routes/users'));
+app.use('/', require('./src/routes/cards'));
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Некорректный путь запроса' });
