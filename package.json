@@ -5,7 +5,7 @@
   "main": "app.js",
   "author": "Yaroslav Shinkarenko",
   "scripts": {
-    "lint": "npx eslint",
+    "lint": "npx eslint .",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },

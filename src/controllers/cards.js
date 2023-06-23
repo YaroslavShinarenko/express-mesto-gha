@@ -3,17 +3,16 @@ const Card = require('../models/card');
 const {
   BAD_REQUEST_ERROR_CODE,
   INTERNAL_SERVER_ERROR_CODE,
-  NOT_FOUND_ERROR_CODE
+  NOT_FOUND_ERROR_CODE,
 } = require('../utils/errorCodes');
-
 
 module.exports.getCards = (req, res) => {
   Card.find({})
     .then((cards) => {
       res.send({ data: cards });
     })
-    .catch((error) => {
-      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении карточек', errorName: error.name });
+    .catch(() => {
+      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении карточек' });
     });
 };
 
@@ -26,9 +25,9 @@ module.exports.createCard = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании карточки', errorName: error.name });
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании карточки' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при создании карточки', errorName: error.name });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при создании карточки' });
       }
     });
 };
@@ -39,15 +38,15 @@ module.exports.deleteCard = (req, res) => {
   Card.findByIdAndRemove(cardId)
     .then((card) => {
       if (!card) {
-        return res.status(NOT_FOUND_ERROR_CODE).send({ message: `Карточки с id:${cardId} не существует.` });
+        res.status(NOT_FOUND_ERROR_CODE).send({ message: `Карточки с id:${cardId} не существует.` });
       }
       res.send({ data: card });
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при удалении карточки', errorName: error.name });
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при удалении карточки' });
       } else {
-      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при удалении карточки', errorName: error.name });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при удалении карточки' });
       }
     });
 };
@@ -59,19 +58,19 @@ module.exports.likeCard = (req, res) => {
   Card.findByIdAndUpdate(
     cardId,
     { $addToSet: { likes: userId } },
-    { new: true }
+    { new: true },
   )
     .then((card) => {
       if (!card) {
-        return res.status(NOT_FOUND_ERROR_CODE).send({ message: `Карточки с id:${cardId} не существует.` });
+        res.status(NOT_FOUND_ERROR_CODE).send({ message: `Карточки с id:${cardId} не существует.` });
       }
       res.send({ data: card });
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные для постановки лайка', errorName: error.name });
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные для постановки лайка' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при постановке лайка', errorName: error.name });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при постановке лайка' });
       }
     });
 };
@@ -83,20 +82,19 @@ module.exports.dislikeCard = (req, res) => {
   Card.findByIdAndUpdate(
     cardId,
     { $pull: { likes: userId } },
-    { new: true }
+    { new: true },
   )
     .then((card) => {
       if (!card) {
-        return res.status(NOT_FOUND_ERROR_CODE).send({ message: `Карточки с id:${cardId} не существует.` });
+        res.status(NOT_FOUND_ERROR_CODE).send({ message: `Карточки с id:${cardId} не существует.` });
       }
       res.send({ data: card });
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные для снятия лайка', errorName: error.name });
+        res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные для снятия лайка' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при снятии лайка', errorName: error.name });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при снятии лайка' });
       }
     });
 };
-

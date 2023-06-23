@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const { PORT = 3000} = process.env;
+const { PORT = 3000 } = process.env;
 const app = express();
 
 app.use(bodyParser.json());
@@ -17,15 +17,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', { useNewUrlParser: true })
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '649272b56d9cbc220613e5fc' // вставьте сюда _id созданного в предыдущем пункте пользователя
+    _id: '649272b56d9cbc220613e5fc', // вставьте сюда _id созданного в предыдущем пункте пользователя
   };
 
   next();
 });
-
-module.exports.createCard = (req, res) => {
-  console.log(req.user._id); // _id станет доступен
-};
 
 app.use('/', require('./src/routes/users'));
 app.use('/', require('./src/routes/cards'));
@@ -35,6 +31,4 @@ app.use((req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.listen(PORT, () => {
-  console.log(`Слушаем порт: ${PORT}`);
-});
+app.listen(PORT);
