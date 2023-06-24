@@ -12,7 +12,7 @@ module.exports.getUsers = (req, res) => {
       res.send({ data: users });
     })
     .catch(() => {
-      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении пользователей' });
+      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -31,7 +31,7 @@ module.exports.getUserById = (req, res) => {
       if (error.name === 'CastError') {
         res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Передан некорректный идентификатор пользователя' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении пользователя' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
@@ -47,7 +47,7 @@ module.exports.createUser = (req, res) => {
       if (error.name === 'ValidationError') {
         res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании пользователя' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при создании пользователя' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
@@ -71,7 +71,7 @@ module.exports.updateProfile = (req, res) => {
       if (error.name === 'ValidationError') {
         res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при обновлении профиля' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
@@ -95,7 +95,7 @@ module.exports.updateAvatar = (req, res) => {
       if (error.name === 'ValidationError') {
         res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при обновлении аватара' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };

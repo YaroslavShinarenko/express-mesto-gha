@@ -12,7 +12,7 @@ module.exports.getCards = (req, res) => {
       res.send({ data: cards });
     })
     .catch(() => {
-      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при получении карточек' });
+      res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -27,7 +27,7 @@ module.exports.createCard = (req, res) => {
       if (error.name === 'ValidationError') {
         res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании карточки' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при создании карточки' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
@@ -46,7 +46,7 @@ module.exports.deleteCard = (req, res) => {
       if (error.name === 'CastError') {
         res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные при удалении карточки' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при удалении карточки' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
@@ -70,7 +70,7 @@ module.exports.likeCard = (req, res) => {
       if (error.name === 'CastError') {
         res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные для постановки лайка' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при постановке лайка' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
@@ -94,7 +94,7 @@ module.exports.dislikeCard = (req, res) => {
       if (error.name === 'CastError') {
         res.status(BAD_REQUEST_ERROR_CODE).send({ message: 'Переданы некорректные данные для снятия лайка' });
       } else {
-        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'Произошла ошибка при снятии лайка' });
+        res.status(INTERNAL_SERVER_ERROR_CODE).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
